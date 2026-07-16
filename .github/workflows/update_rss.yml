@@ -1,0 +1,29 @@
+name: Auto Update Codal RSS
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # هر ۳۰ دقیقه یک‌بار خودکار اجرا می‌شود
+  workflow_dispatch: # دکمه اجرای دستی را فعال می‌کند
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Run Script
+      run: python codal_rss_generator.py
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "GitHub Action Bot"
+        git config --global user.email "action@github.com"
+        git add codal_feed.xml
+        git commit -m "Update Codal Feed with all symbols" || exit 0
+        git push
