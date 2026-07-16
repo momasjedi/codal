@@ -3,7 +3,7 @@ name: Auto Update Codal RSS
 on:
   schedule:
     - cron: '*/30 * * * *' # هر ۳۰ دقیقه یک‌بار خودکار اجرا می‌شود
-  workflow_dispatch: # دکمه اجرای دستی در تب Actions
+  workflow_dispatch: # دکمه اجرای دستی
 
 permissions:
   contents: write
@@ -23,10 +23,9 @@ jobs:
     - name: Run Script
       run: python codal_rss_generator.py
 
+    # استفاده از یک ابزار آماده و هوشمند برای کامیت و آپلود بدون دردسر
     - name: Commit and Push Changes
-      run: |
-        git config --global user.name "GitHub Action Bot"
-        git config --global user.email "action@github.com"
-        git add codal_feed.xml
-        git commit -m "Update Codal Feed with all symbols" || exit 0
-        git push origin HEAD:main
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Update Codal Feed with all symbols"
+        file_pattern: 'codal_feed.xml'
