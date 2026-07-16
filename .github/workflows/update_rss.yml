@@ -23,7 +23,6 @@ jobs:
     - name: Run Script
       run: python codal_rss_generator.py
 
-    # استفاده از یک ابزار آماده و هوشمند برای کامیت و آپلود بدون دردسر
     - name: Commit and Push Changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
