@@ -5,7 +5,6 @@ on:
     - cron: '*/30 * * * *' # هر ۳۰ دقیقه یک‌بار خودکار اجرا می‌شود
   workflow_dispatch: # دکمه اجرای دستی در تب Actions
 
-# این دو خط طلایی مشکل خطای ۱۲۸ و عدم دسترسی ربات را برای همیشه حل می‌کند
 permissions:
   contents: write
 
@@ -14,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4 # ارتقا به نسخه ۴ برای حل هشدار گیت‌هاب
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # ارتقا به نسخه ۵ برای حل هشدار گیت‌هاب
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
@@ -30,4 +29,4 @@ jobs:
         git config --global user.email "action@github.com"
         git add codal_feed.xml
         git commit -m "Update Codal Feed with all symbols" || exit 0
-        git push
+        git push origin HEAD:main
