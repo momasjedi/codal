@@ -3,17 +3,21 @@ name: Auto Update Codal RSS
 on:
   schedule:
     - cron: '*/30 * * * *' # هر ۳۰ دقیقه یک‌بار خودکار اجرا می‌شود
-  workflow_dispatch: # دکمه اجرای دستی را فعال می‌کند
+  workflow_dispatch: # دکمه اجرای دستی در تب Actions
+
+# این دو خط طلایی مشکل خطای ۱۲۸ و عدم دسترسی ربات را برای همیشه حل می‌کند
+permissions:
+  contents: write
 
 jobs:
   update-rss:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4 # ارتقا به نسخه ۴ برای حل هشدار گیت‌هاب
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5 # ارتقا به نسخه ۵ برای حل هشدار گیت‌هاب
       with:
         python-version: '3.x'
 
